@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Slammy Wins At All Times!</title>
+  <style>
+    body {
+      background-color: rgb(17, 17, 17);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      font-family: "Courier", monospace;
+    }
+
+    .middle-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .discord-link {
+      color: blue;
+      text-decoration: none;
+      transition: font-size 0.2s;
+      font-family: "Courier", monospace;
+    }
+
+    .discord-link:hover {
+      font-size: 102%;
+    }
+
+    .username-container {
+      position: relative;
+      display: inline-block;
+      font-family: "Courier", monospace;
+    }
+
+    .username {
+      color: orange;
+    }
+
+    .copy-button {
+      opacity: 0;
+      position: absolute;
+      top: -20px;
+      right: 0;
+      padding: 2px 5px;
+      background-color: transparent;
+      color: white;
+      border: none;
+      transition: opacity 0.2s;
+      font-family: "Courier", monospace;
+    }
+
+    .username-container:hover .copy-button {
+      opacity: 1;
+    }
+
+    .gray-box {
+      background-color: rgb(10, 10, 10);
+      color: white;
+      width: 600px;
+      padding: 10px;
+      margin-top: 20px;
+      text-align: center;
+      font-family: "Courier", monospace;
+    }
+
+    .table {
+      display: table;
+      margin: 0 auto;
+    }
+
+    .table-row {
+      display: table-row;
+    }
+
+    .table-cell {
+      display: table-cell;
+      padding: 5px;
+    }
+
+    .mouse-clone {
+      position: fixed;
+      pointer-events: none;
+      font-size: 20px;
+      color: white;
+      animation: cloneAnimation 2s linear;
+    }
+
+    @keyframes cloneAnimation {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(30deg);
+      }
+      80% {
+        opacity: 0.5;
+        transform: translate(calc(50vw - 200px), calc(50vh - 100px)) rotate(-30deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(50vw - 200px), calc(50vh - 100px)) rotate(-30deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Slammy World</h1>
+  <div class="middle-section">
+    <p>
+      <a href="https://discord.gg/PU9nT3HJTk" class="discord-link" target="_blank">My Discord Server</a>
+      <span> | </span>
+      <span class="username-container">
+        <span class="username">slammy#0085</span>
+        <button class="copy-button" onclick="copyToClipboard('slammy#0085')">Copy</button>
+      </span>
+    </p>
+    <div class="gray-box">
+      <div class="table">
+        <div class="table-row">
+          <div class="table-cell">Script Status [🟢Working 🟡Development Discontinued:🔴]</div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell">🟡Slammys Private V2</div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell">🟢Slammys Private V1</div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell">🔴Excords.cc</div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell">🔴Primordial.lua</div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell">🔴Always.Win</div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell">🔴Neverloose.lua</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyToClipboard(text) {
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      alert('Copied: ' + text);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      setInterval(cloneMouse, 150);
+    });
+
+    function cloneMouse() {
+      const mouseClone = document.createElement('div');
+      mouseClone.classList.add('mouse-clone');
+      mouseClone.style.left = Math.random() * 100 + 'vw';
+      mouseClone.style.top = Math.random() * 100 + 'vh';
+      mouseClone.innerHTML = '&#128302;'; // Sword emoji
+      document.body.appendChild(mouseClone);
+      setTimeout(function() {
+        document.body.removeChild(mouseClone);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

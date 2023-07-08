@@ -1,267 +1,169 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Slammy Wins At All Times!</title>
-  <style>
-    body {
-      background-color: rgb(17, 17, 17);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    <style>
+        body {
+            background-color: rgb(0, 0, 0);
+            animation: colorFade 4s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+        }
 
-    h1 {
-      text-align: center;
-      margin-top: 30px;
-      font-family: "Courier", monospace;
-    }
+        @keyframes colorFade {
+            0% { background-color: rgb(0, 0, 0); }
+            50% { background-color: rgb(19, 19, 19); }
+            100% { background-color: rgb(0, 0, 0); }
+        }
 
-    .middle-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
-    }
+        .title {
+            font-family: Courier, monospace;
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
 
-    .discord-link,
-    .username,
-    .roblox-link {
-      color: white;
-      text-decoration: none;
-      transition: opacity 0.2s, transform 0.2s;
-      font-family: "Courier", monospace;
-    }
+        .datetime {
+            font-family: Courier, monospace;
+            font-size: 18px;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            top: 320px; /* Adjust the top position as desired */
+            left: 50%; /* Position the datetime in the middle */
+            transform: translateX(-50%); /* Center horizontally */
+        }
 
-    .discord-link:hover,
-    .username:hover,
-    .roblox-link:hover {
-      opacity: 1;
-      transform: scale(1.4);
-    }
+        .cross-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0.5%;
+        }
 
-    .username-container {
-      position: relative;
-      display: inline-block;
-      font-family: "Courier", monospace;
-    }
+        .cross {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            animation: fall 2s ease-in-out infinite;
+        }
 
-    .username {
-      color: orange;
-    }
+        .cross img {
+            width: 41%;
+            height: 89%;
+            object-fit: contain;
+        }
 
-    .roblox-link {
-      color: red;
-    }
+        @keyframes fall {
+            0% { opacity: 1; }
+            100% { top: 100vh; opacity: 0; }
+        }
 
-    .roblox-link:hover {
-      text-decoration: underline;
-    }
+        .discord-link-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            position: absolute;
+            top: 400px; /* Adjust the top position as desired */
+            left: 50%; /* Position the links in the middle */
+            transform: translateX(-50%); /* Center horizontally */
+        }
 
-    .copy-button {
-      opacity: 0;
-      position: absolute;
-      top: -20px;
-      right: 0;
-      padding: 2px 5px;
-      background-color: transparent;
-      color: white;
-      border: none;
-      transition: opacity 0.2s;
-      font-family: "Courier", monospace;
-    }
+        .discord-link {
+            font-family: Courier, monospace;
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.2s ease-in-out;
+            position: relative;
+            margin: 0 10px;
+        }
 
-    .username-container:hover .copy-button {
-      opacity: 1;
-    }
+        .discord-link::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: white;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.2s ease-in-out;
+        }
 
-    .gray-box {
-      background-color: rgb(10, 10, 10);
-      color: white;
-      width: 600px;
-      padding: 10px;
-      margin-top: 20px;
-      text-align: center;
-      font-family: "Courier", monospace;
-    }
+        .discord-link:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
 
-    .table {
-      display: table;
-      margin: 0 auto;
-    }
+        .discord-link:hover {
+            opacity: 0.8;
+        }
 
-    .table-row {
-      display: table-row;
-    }
-
-    .table-cell {
-      display: table-cell;
-      padding: 5px;
-    }
-
-    .mouse-clone {
-      position: fixed;
-      pointer-events: none;
-      font-size: 20px;
-      color: white;
-      animation: cloneAnimation 2s linear;
-    }
-
-    @keyframes cloneAnimation {
-      0% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
-      20% {
-        opacity: 1;
-        transform: translate(-50%, -50%) rotate(30deg);
-      }
-      80% {
-        opacity: 0.5;
-        transform: translate(calc(50vw - 200px), calc(50vh - 100px)) rotate(-30deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(calc(50vw - 200px), calc(50vh - 100px)) rotate(-30deg);
-      }
-    }
-
-    /* QR Code Styles */
-
-    #qrcode {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: 200px; /* Adjust the height of the QR code as needed */
-    }
-
-    #qrcode a {
-      position: relative;
-      display: block;
-      margin-top: 10px;
-    }
-
-    #qrcode a::after {
-      content: "Profile";
-      position: absolute;
-      top: 200%;
-      left: 599%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 4px 8px;
-      color: #ffffff;
-      font-size: 16px;
-      text-align: center;
-      z-index: 2;
-      font-family: Courier, monospace;
-    }
-  </style>
+        .separator {
+            color: white;
+        }
+    </style>
 </head>
 <body>
-  <h1>Slammy World</h1>
-  <div class="middle-section">
-    <p>
-      <a href="https://discord.gg/PU9nT3HJTk" class="discord-link" target="_blank">My Discord Server</a>
-      <span style="color: white;"> | </span>
-      <span class="username-container">
-        <span class="username">slammyq</span>
-        <button class="copy-button" onclick="copyToClipboard('onlyslammy')">Copy</button>
-      </span>
-      <span style="color: white;"> | </span>
-      <span style="color: red; font-family: 'Courier', monospace;">
-        Roblox: <a href="https://www.roblox.com/users/3973496531/profile" class="roblox-link" target="_blank">slammyq</a>
-      </span>
-    </p>
-    <div class="gray-box">
-      <div class="table">
-        <div class="table-row">
-          <div class="table-cell">Script Status [🟢Working 🟡Development Discontinued:🔴]</div>
-        </div>
-        <div class="table-row">
-          <div class="table-cell">🟡Slammys Private V2</div>
-        </div>
-        <div class="table-row">
-          <div class="table-cell">🟢Slammys Private V1</div>
-        </div>
-                <div class="table-row">
-          <div class="table-cell">🟢Mars.cc</div>
-        </div>
-        <div class="table-row">
-          <div class="table-cell">🔴Excords.cc</div>
-        </div>
-        <div class="table-row">
-          <div class="table-cell">🔴Primordial.lua</div>
-        </div>
-        <div class="table-row">
-          <div class="table-cell">🔴Always.Win</div>
-        </div>
-        <div class="table-row">
-          <div class="table-cell">🔴Neverloose.lua</div>
-        </div>
-         <div class="table-row">
-          <div class="table-cell">🔴Sec-Hub</div>
-        </div>
-                 <div class="table-row">
-          <div class="table-cell">🔴Slammy.Hook</div>
-        </div>
-        <div class="table-row">
-          <div class="table-cell">🔴Slammys Script</div>
-        </div>
-       <div class="table-row">
-          <div class="table-cell">🔴Sec-Hub V2</div>
-        </div>
-      </div>
+    <div class="title">SLAMMYS WORLD</div>
+    <div class="datetime" id="datetime">Script Status [🟢Working 🟡Development Discontinued:🔴]</div>
+    <div class="title">ONE AND ONLY BEST 100 PING LOCKER.</div>
+    <div class="discord-link-container">
+        <a class="discord-link" href="https://discord.gg/3k88MRdH" target="_blank">Discord Server</a>
+        <span class="separator">|</span>
+        <a class="discord-link" href="https://discord.com/users/1126394486487007233" target="_blank">Discord Account</a>
+        <span class="separator">|</span>
+        <a class="discord-link" href="https://www.roblox.com/users/3973496531/profile" target="_blank">Roblox Account</a>
     </div>
-  </div>
+    <div class="cross-container"></div>
+    <script>
+        function updateTime() {
+            var datetimeElement = document.getElementById("datetime");
+            var currentDatetime = new Date().toLocaleString();
+            datetimeElement.innerText = currentDatetime;
+        }
 
+        updateTime();
+        setInterval(updateTime, 1000);
 
-  <div id="qrcode"></div>
+        var spawnDelay = 0.05;
+        var lastSpawnTime = 0;
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-  <script>
-    var qrCodeDiv = document.getElementById("qrcode");
-    var userId = "1085779591056072767"; // Replace with the desired Discord user ID
-    var url = "https://discord.com/users/" + userId;
+        document.addEventListener("mousemove", function(event) {
+            var currentTime = Date.now();
+            if (currentTime - lastSpawnTime < spawnDelay * 1000) {
+                return;
+            }
+            lastSpawnTime = currentTime;
 
-    var qrcode = new QRCode(qrCodeDiv, {
-      text: url,
-      width: 128,
-      height: 128
-    });
+            var crossContainer = document.querySelector(".cross-container");
 
-    var link = document.createElement("a");
-    link.href = url;
-    link.target = "_blank";
-    qrCodeDiv.appendChild(link);
-  </script>
+            var cross = document.createElement("div");
+            cross.className = "cross";
+            var img = document.createElement("img");
+            img.src = "https://cdn.discordapp.com/attachments/1126395431719534642/1127178925332762654/clipart141396.png";
+            cross.appendChild(img);
+            cross.style.left = (event.clientX - 1) + "px";
+            cross.style.top = (event.clientY - 15) + "px";
+            crossContainer.appendChild(cross);
 
-  <script>
-    function copyToClipboard(text) {
-      const tempInput = document.createElement('input');
-      tempInput.value = text;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-      alert('Copied: ' + text);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      setInterval(cloneMouse, 150);
-    });
-
-    function cloneMouse() {
-      const mouseClone = document.createElement('div');
-      mouseClone.classList.add('mouse-clone');
-      mouseClone.style.left = Math.random() * 100 + 'vw';
-      mouseClone.style.top = Math.random() * 100 + 'vh';
-      mouseClone.innerHTML = '&#128302;'; // Sword emoji
-      document.body.appendChild(mouseClone);
-      setTimeout(function() {
-        document.body.removeChild(mouseClone);
-      }, 2000);
-    }
-  </script>
+            setTimeout(function() {
+                cross.remove();
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
